@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<!-- Button trigger modal -->
+
+
+    
+      <h2><b id="title"> {{memory.title}}</b></h2>
+      <small id="date">  {{memory.date_posted}} </small>
+      <hr>
+      <div id="body" class="text-justify">
+                {{memory.body|safe}}
+      </div>
+      
+      <form method="POST" action="" id="btn">
+
+      </form>
+      
+
+
+
+{% endblock %}
+
+

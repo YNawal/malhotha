@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h2><b> عرض الصورة  </b></h2>
+  
+
+<img src="{{ url_for('send_uploaded_file', filename=uploaded_image) }}" />
+
+{% endblock %}

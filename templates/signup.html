@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+  <h2><b>تسجيل حساب</b></h2>
+
+ {% from "includes/_formhelpers.html" import render_field %}
+
+  <form action="/signup" method="post">
+    {{ form.csrf_token }}
+    <div class="form-group text-right">
+      {{ render_field(form.name, class_="form-control") }} 
+    </div>
+    
+    <div class="form-group text-right" >
+      {{ render_field(form.email, class_="form-control") }}
+    </div>
+
+    <div class="form-group text-right">
+      {{ render_field(form.password, class_="form-control") }} 
+    </div>
+    
+    <!--<input type="file" name="file" autocomplete="off" />-->
+    <hr>
+    <p><input class="btn btn-primary pull-right" type="submit" value="سجّل">
+  </form>
+  
+  {% endblock %}
+

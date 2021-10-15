@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h3 class="text-right">  مرحبًا <b>{{current_user.name}}</b></h3>
+  <td> <a href="/add_memory" class="btn btn-success pull-left"><b>أضِف ملحوظة</b></a></td>
+  <br>
+  <hr>
+  <table class="table table-striped">
+    <tr>
+      <th>المعرّف</th>
+      <th class="text-right">العنوان</th>
+      <th class="text-right">الكاتب</th>
+      <th class="text-right">وقت الإضافة</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for memory in memories.items %}
+      <tr>
+        <td>{{memory.id}}</td>
+        <td class="text-right"><b>{{memory.title}}</b></td>
+        <td class="text-right">{{current_user.name}}</td>
+        <td class="text-right">{{memory.date_posted}}</td>
+        <td><a href="edit_memory/{{memory.id}}" class="btn btn-default pull-right">تعديل</a></td>
+        <td>
+          <form action="{{url_for('delete_memory', id=memory.id)}}" method="post" onSubmit="return confirm('هل أنت متأكد؟');">
+               <input type="submit" value="حذف" class="btn btn-danger">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  
+    {% for page_num in memories.iter_pages(left_edge=1, right_edge=1,
+    left_current=1, right_current=2) %}
+        {% if page_num %} 
+            {% if memories.page == page_num %}
+               
+                 <a class="btn btn-default  mb-4"
+                  href="{{ url_for('dashboard', page=page_num) }}"
+                  >{{ page_num }}</a>
+                
+            {% else %}
+                
+                  <a class="btn btn-outline-info mb-4"
+                  href="{{ url_for('dashboard', page=page_num) }}"
+                  >{{ page_num }}</a>
+                
+            {% endif %}
+        
+         {% else %} 
+             ... 
+         {% endif %} 
+    {% endfor %}
+{% endblock %}

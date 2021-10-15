@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>تطبيق تذكّر</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='ar_style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+  
+     <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+             <h4 class="modal-title" style="color:red;"><b>  ملحوظة جديدة بانتظار المراجعة</b> </h4>
+         </div>
+         <div class="modal-body">
+             <p id="modalBody" class="text-justify" style="font-size=2.rem;"> 
+              اغلق النافذة لتطّلع على الملحوظة في
+ <a href="/remember">
+                مساحة التذكّر. </a> 
+              يمكنك اخفاء الملحوظة وقتما تشاء.
+                تختفي الملحوظة الحالية تلقائيا إذا حان موعد مراجعة الملحوظة التالية
+              </p>
+         </div>
+         <div class="modal-footer">
+             <!--<button type="submit" class="btn btn-white" ng-click="cancel()">اِخفـاء</button>-->
+             <!--<button type="button" class="btn btn-primary" ng-click="ok()">Save changes</button>-->
+         </div>
+       </div>
+      </div>
+    </div>   
+
+    <div class="container">
+        
+          <div class="header clearfix">
+                {% include 'includes/_navbar.html' %}
+          </div>
+          
+
+          <div class="jumbotron">
+           		<div class="canvasDiv" style="width: 100%;">
+            	<br>
+                  {% include 'includes/_messages.html' %}
+                  {% block body %}{% endblock %}                   
+                </div>
+          </div>
+          
+
+      <footer class="footer">
+        <p style= "font-size: 1.5rem;" >تطبيق تذكّر  </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="{{ url_for('static',filename='layout.js') }}"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.6.0/full/ckeditor.js"></script>
+    <script type="text/javascript"> CKEDITOR.replace('editor')</script>
+    <!--<script type="text/javascript">       CKEDITOR.replace('editor', {filebrowserUploadUrl: '/ckupload/'})</script>-->
+    <script src="{{ url_for('static',filename='img_show.js') }}"></script>
+    <!--<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/balloon-block/ckeditor.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.8.0/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
+
+
+  
+  <script>
+    (function init() {
+      var socket = io.connect('https://malhotha.herokuapp.com'   '/test',
+                  { withCredentials: true, });
+      
+      var title = document.getElementById('title')
+      var dataElement = document.createElement('pre')
+           
+      var date = document.getElementById('date')
+      var dataElement_d = document.createElement('pre3')
+      
+      var body = document.getElementById('body')
+      var dataElement_b = document.createElement('pre4')
+      
+     
+      var btn = document.getElementById('btn')
+      var dataElement_btn = document.createElement('pre5')
+      
+
+      socket.on('log', function(payload) {    
+      
+      
+        $("#getCodeModal").modal('show');
+    
+
+        dataElement.innerHTML = payload.title
+        title.appendChild(dataElement)
+        
+        dataElement_d.innerHTML = "  أضيفت في  " + payload.date 
+        date.appendChild(dataElement_d)
+        
+        
+        dataElement_b.innerHTML = payload.body
+        body.appendChild(dataElement_b)
+        
+       
+        dataElement_btn.innerHTML ='<p><input class="btn btn-primary pull-right" type="submit" value="اِخفـاء الملحوظة"> </p>' 
+        btn.appendChild(dataElement_btn)
+
+        
+      })
+
+              
+    })()
+  </script>
+  
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h2><b>{{memory.title}}</b></h2>
+  <small>كٌتب بواسطة  {{current_user.name}} في {{memory.date_posted}}</small>
+  <hr>
+  <div class="text-justify">
+    {{memory.body | safe}}
+  </div>
+  {% if memory.rendered_data !="" %}
+    <!--<img src="data:;b64encode,{{ memory.rendered_data }}"/>-->
+  {% endif %}
+{% endblock %}

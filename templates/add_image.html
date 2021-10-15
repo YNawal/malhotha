@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <h2><b>أضِف صورة من جهازك</b></h2>
+  
+
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+    {% endif %}
+    
+    <form method="post" action="/add_image" enctype="multipart/form-data">
+        <dl>
+    		<p>
+    			<input type="file" name="file" autocomplete="off" required>
+    		</p>
+        </dl>
+        <p>
+    		<input type="submit" value="ارفع الصورة">
+    	</p>
+    </form>
+
+{% endblock %}

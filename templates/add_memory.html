@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h2><b>أضِف ملحوظة</b></h2>
+
+  {% from "includes/_formhelpers.html" import render_field %}
+
+  <form action="" method="post">
+    {{ form.csrf_token }}
+    <div class="form-group text-right" >
+      {{ render_field(form.title, class_="form-control") }}
+    </div>
+
+    <div class="form-group text-right">
+      {{ render_field(form.body, class_="form-control", id="editor") }} 
+    </div>
+    
+    <!--<input type="file" name="file" autocomplete="off" />-->
+    <hr>
+    <p><input class="btn btn-primary pull-right" type="submit" value="حِفظ">
+  </form>
+  
+
+
+{{ super() }}
+{{ ckeditor.load() }}
+
+{% endblock %}
+
+

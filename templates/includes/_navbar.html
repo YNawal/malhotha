@@ -1,0 +1,26 @@
+
+<nav>
+      <ul class="nav nav-pills pull-right" id="nav" style="font-size:2rem;">
+          <li role="presentation"><a href="/"><b>حول التطبيق</b> </a></li>
+      
+          {% if current_user.is_authenticated %}
+              <li role="presentation"><a href="/memories"><b>الملحوظات</b></a></li>
+              <li role="presentation"><a href="/remember"><b>تذكّر</b></a></li>
+          {% endif %}
+          <!--<li role="presentation" ><a href="/"><b>الرئيسية  </b></a></li>-->
+      </ul>
+  
+    <ul class="nav nav-pills pull-left" id="nav" style="font-size:2rem;">
+   
+      {% if current_user.is_authenticated %}
+        <li role="presentation"><a href="/dashboard"><b>لوحة التحكّم</b></a></li>
+        <li role="presentation"><a href="/logout"><b>خروج</b></a></li>
+      {% else %}
+          <li role="presentation"><a href="/login"><b> الدخول  </b></a></li>
+          <li role="presentation"><a href="/signup"><b>التسجيل   </b></a></li>
+      
+      {% endif %}
+    </ul>
+  </nav>
+
+
